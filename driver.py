@@ -12,6 +12,7 @@ def process(filename):
     img = imgutils.forceGrey(img)
 
     img = cv2.resize(img, (100, 100))
+    return img
 
 
 def main(name):
@@ -42,11 +43,8 @@ def main(name):
                 if len(key) > 0:
                     continue
 
-                ps, graph = process(name+file)
-                print("\n\n\n\n"+str(ps))
-                with open(name+file+'.txt', 'a+') as f:
-                    f.write(file+'\n')
-                    f.write(str(graph)+'\n\n')
+                im = process(name+file)
+                cv2.imwrite(name+str(c)+"."+file.split(".")[-1], im)
 
                 print()  # Newline
                 raw_input("press any key to continue.")
@@ -57,12 +55,12 @@ def main(name):
           name.split('.')[-1] == 'jpg' or \
           name.split('.')[-1] == 'jpeg':
 
-            ps, graph = process(name)
-            print("\n\n\n\n"+str(ps))
-            with open(name+'.txt', 'a+') as f:
-                f.write(name+'\n')
-                f.write(str(graph)+'\n\n')
+            im = process(name)
+            cv2.imwrite(name+str(c)+"."+file.split(".")[-1], im)
 
             print()  # Newline
             raw_input("press any key to continue.")
         print("\n\n\n\n")
+
+
+main(None)
