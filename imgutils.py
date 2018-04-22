@@ -63,3 +63,37 @@ def findPeak(xs, ys, count=15):
         ret.append(x[-1-i][0])
 
     return ret
+
+def helper_plot_grid(cache, title, c=None):
+    '''
+    Helper function for plotting 3x3 grid, image visualization 
+    '''
+    f, axarr = plt.subplots(3, 3)
+    axarr[0, 0].imshow(cache[0][0], cmap=c)
+    axarr[0, 0].set_title(cache[0][1], fontsize=7)
+    axarr[0, 1].imshow(cache[1][0], cmap=c)
+    axarr[0, 1].set_title(cache[1][1], fontsize=7)
+    axarr[0, 2].imshow(cache[2][0], cmap=c)
+    axarr[0, 2].set_title(cache[2][1], fontsize=7)
+    axarr[1, 0].imshow(cache[3][0], cmap=c)
+    axarr[1, 0].set_title(cache[3][1], fontsize=7)
+    axarr[1, 1].imshow(cache[4][0], cmap=c)
+    axarr[1, 1].set_title(cache[4][1], fontsize=7)
+    axarr[1, 2].imshow(cache[5][0], cmap=c)
+    axarr[1, 2].set_title(cache[5][1], fontsize=7)
+    axarr[2, 0].imshow(cache[6][0], cmap=c)
+    axarr[2, 0].set_title(cache[6][1], fontsize=7)
+    axarr[2, 1].imshow(cache[7][0], cmap=c)
+    axarr[2, 1].set_title(cache[7][1], fontsize=7)
+    axarr[2, 2].imshow(cache[8][0], cmap=c)
+    axarr[2, 2].set_title(cache[8][1], fontsize=7)
+    plt.setp([a.get_xticklabels() for a in axarr[0, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[1, :]], visible=False)
+    plt.setp([a.get_xticklabels() for a in axarr[2, :]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 0]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 1]], visible=False)
+    plt.setp([a.get_yticklabels() for a in axarr[:, 2]], visible=False)
+    plt.suptitle(title)
+    plt.savefig("../figures/" + title + ".png")
+    plt.clf()
+    
