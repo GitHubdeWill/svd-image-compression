@@ -7,16 +7,19 @@ import os
 # from sklearn.cluster import KMeans
 # import matplotlib.pyplot as plt
 
-
 import imgutils
 
 
 def process(filename):
 
     img = cv2.imread(filename)
-    # img = imgutils.forceGrey(img)
+    img = imgutils.forceGrey(img)
 
     img = cv2.resize(img, (100, 100))
+    img = np.reshape(img, (1, 10000))
+    img = np.reshape(img, (100, 100))
+    cv2.imshow('he', img)
+    cv2.waitKey(0)
     # yeah...
     data_x = img
     # print('X = ', data_x.shape)
@@ -67,7 +70,7 @@ def main(name):
                     continue
 
                 im = process(name+file)
-                cv2.imwrite(name+str(c)+"RGB."+file.split(".")[-1], im)
+                # cv2.imwrite(name+str(c)+"RGB."+file.split(".")[-1], im)
 
                 print()  # Newline
                 raw_input("press any key to continue.")
