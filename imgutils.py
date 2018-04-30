@@ -1,6 +1,7 @@
 import cv2
 import numpy as np
 import sys
+from matplotlib import pyplot as plt
 
 
 # Convert to greyscale no matter what
@@ -64,9 +65,10 @@ def findPeak(xs, ys, count=15):
 
     return ret
 
+
 def helper_plot_grid(cache, title, c=None):
     '''
-    Helper function for plotting 3x3 grid, image visualization 
+    Helper function for plotting 3x3 grid, image visualization
     '''
     f, axarr = plt.subplots(3, 3)
     axarr[0, 0].imshow(cache[0][0], cmap=c)
@@ -96,4 +98,3 @@ def helper_plot_grid(cache, title, c=None):
     plt.suptitle(title)
     plt.savefig("../figures/" + title + ".png")
     plt.clf()
-    

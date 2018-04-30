@@ -2,10 +2,10 @@ import cv2
 import numpy as np
 import sys
 import os
-from scipy import misc
-import imageio
-from sklearn.cluster import KMeans
-import matplotlib.pyplot as plt
+# from scipy import misc
+# import imageio
+# from sklearn.cluster import KMeans
+# import matplotlib.pyplot as plt
 
 
 import imgutils
@@ -20,19 +20,19 @@ def process(filename):
     # yeah...
     data_x = img
     print('X = ', data_x.shape)
-    
+
     print('Implement PCA here ...')
     U, s, V = np.linalg.svd(data_x)
-    
-    cache = [(data_x.reshape(100,100), "Original")]
-    for i in [3,5,10,30,50,100,150,300]:
+
+    cache = [(data_x.reshape(100, 100), "Original")]
+    for i in [3, 5, 10, 30, 50, 100, 150, 300]:
         print("k = " + str(i))
         w_k = V[:i]
         X_projected = np.dot(data_x, w_k.T)
         X_recon = np.dot(X_projected, w_k)
         print("Reconstruction error: " + str(np.sqrt(np.mean((data_x-X_recon)**2))))
         print("Compression rate: " + str((X_projected.nbytes + w_k.nbytes)/data_x.nbytes))
-        cache.append((X_recon[1].reshape(100,100), "k=" + str(i)))
+        cache.append((X_recon[1].reshape(100, 100), "k=" + str(i)))
     imgutils.helper_plot_grid(cache, "PCA reconstruction", "gray")
 
     return img
@@ -66,7 +66,7 @@ def main(name):
                 if len(key) > 0:
                     continue
 
-                im = process(name+file)
+                process(name+file)
                 # cv2.imwrite(name+str(c)+"."+file.split(".")[-1], im)
 
                 print()  # Newline
@@ -78,7 +78,7 @@ def main(name):
           name.split('.')[-1] == 'jpg' or \
           name.split('.')[-1] == 'jpeg':
 
-            im = process(name)
+            process(name)
             # cv2.imwrite(name+str(c)+"."+file.split(".")[-1], im)
 
             print()  # Newline
