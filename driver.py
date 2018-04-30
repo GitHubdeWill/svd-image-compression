@@ -1,3 +1,20 @@
+########################################################################
+#
+#  Math 545 Final Project
+#
+#  Professor: Qian-Yong Chen
+#  Students: Yi Fung, William He
+#
+#  Due Date: April 30, 2018
+#
+#  Note: this is file that helps crop and format the images,
+#        preparing the data for SVD later.
+#
+#  Thank you for grading and have a great summer!
+#
+########################################################################
+
+
 import cv2
 import numpy as np
 import sys

@@ -7,7 +7,7 @@
 #
 #  Due Date: April 30, 2018
 #
-#  Note: this is running on python v3
+#  Note: this is file that actually perform SVD and image compression.
 #
 #  Thank you for grading and have a great summer!
 #
@@ -55,20 +55,9 @@ def read_faces_rgb():
 	for i in np.arange(1, nFaces):
 		im = Image.open('./pics2/%sRGB.jpeg' % (i)).convert('RGB')
 		pix = np.array(im)
-		if (i == 1):
-			print(pix[1, 10:20, :])
-			fu = np.reshape(pix[:,:,0], (1,nDims))
-			print(fu.shape)
 		data_x_r = np.vstack((data_x_r, np.reshape(pix[:,:,0], (1,nDims))))
 		data_x_g = np.vstack((data_x_g, np.reshape(pix[:,:,1], (1,nDims))))
 		data_x_b = np.vstack((data_x_b, np.reshape(pix[:,:,2], (1,nDims))))
-	uhh2 = np.array([data_x_r[1,:],data_x_g[1,:],data_x_b[1,:]])
-	print(uhh2.size)
-	print(uhh2[10:20])
-	uhh2 = np.reshape(uhh2,(100,100,3))
-	print(uhh2[1, 10:20, :])
-	plt.imshow(uhh2)
-	plt.show()
 	return (data_x_r, data_x_g, data_x_b)
 
 
@@ -143,10 +132,10 @@ if __name__ == '__main__':
 	U_g, s_g, V_g = np.linalg.svd(data_x_g)
 	U_b, s_b, V_b = np.linalg.svd(data_x_b)
 
-	coloredIm = np.dstack((data_x_r[1].reshape(100,100),data_x_g[1].reshape(100,100),data_x_b[1].reshape(100,100)))
+	coloredIm = np.dstack((data_x_r[0],data_x_g[0],data_x_b[0])).reshape(100,100,3)
 	
 	cache = [(coloredIm, "Original")]
-	for i in [3,5,10,25,50,100,150,200]:
+	for i in [5,10,20,30,40,50,60,70,100]:
 		print("k = " + str(i))
 		w_k_r = V_r[:i]
 		X_projected_r = np.dot(data_x_r, w_k_r.T)
@@ -162,6 +151,6 @@ if __name__ == '__main__':
 		#print("# bytes in w_k: " + str(w_k.nbytes))
 		#print("# bytes in data_x: " + str(data_x.nbytes))
 		#print("Compression rate: " + str(float(X_projected.nbytes + w_k.nbytes)/float(data_x.nbytes)))
-		cache.append((np.dstack((X_recon_r[1].reshape(100,100),X_recon_g[1].reshape(100,100),X_recon_b[1].reshape(100,100))), "k=" + str(i)))
+		cache.append((np.dstack((X_recon_r[0],X_recon_g[0],X_recon_b[0])).reshape(100,100,3), "k=" + str(i)))
 	helper_plot_grid(cache, "PCA reconstruction - colored image")
 	
