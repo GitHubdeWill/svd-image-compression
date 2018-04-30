@@ -20,6 +20,7 @@ import imageio
 from PIL import Image
 # from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
+import cv2
 
 
 def read_faces():
@@ -56,6 +57,10 @@ def read_faces_rgb():
         data_x_g = np.vstack((data_x_g, np.reshape(pix[:, :, 2], (1, nDims))))
         data_x_b = np.vstack((data_x_b, np.reshape(pix[:, :, 3], (1, nDims))))
     return (data_x_r, data_x_g, data_x_b)
+
+
+def read_image_cv(path='./pics/%s.jpeg'):
+
 
 
 def helper_plot_grid(cache, title, c=None):
