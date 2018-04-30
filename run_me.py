@@ -97,6 +97,7 @@ def helper_plot_grid(cache, title, c=None):
 	plt.savefig("./figures/" + title + ".png")
 	plt.clf()
 
+
 if __name__ == '__main__':
 
 	########## This is the driver and main function ############
@@ -106,25 +107,35 @@ if __name__ == '__main__':
 	data_x = read_faces()
 	print('Size of X = ', data_x.shape)
 
+	### Perform SVD decomposition here
 	U, s, V = np.linalg.svd(data_x)
 	#print('Size of U = ', U.shape)
 	#print('Size of s = ', s.shape)
 	#print('Size of V = ', V.shape)
 
 	cache = [(data_x[1].reshape(100,100), "Original")]
+
+    ### PCA: find the k=i eigenvectors corresponding to the largest
+    ###      eigenvalues in the SVD-decomposed data 
 	for i in [3,5,10,25,50,100,150,200]:
 		print("k = " + str(i))
 		w_k = V[:i]
-		X_projected = np.dot(data_x, w_k.T)
-		X_recon = np.dot(X_projected, w_k)
-		print("Reconstruction error: " + str(np.sqrt(np.mean((data_x-X_recon)**2))))
+		### Report the compression rate here
+        X_projected = np.dot(data_x, w_k.T)
 		#print("# bytes in X_projected: " + str(X_projected.nbytes))
 		#print("# bytes in w_k: " + str(w_k.nbytes))
 		#print("# bytes in data_x: " + str(data_x.nbytes))
 		print("Compression rate: " + str(float(X_projected.nbytes + w_k.nbytes)/float(data_x.nbytes)))
+		### Report the reconstruction error here
+		X_recon = np.dot(X_projected, w_k)
+		print("Reconstruction error: " + str(np.sqrt(np.mean((data_x-X_recon)**2))))
+		### Cache data for plotting 
 		cache.append((X_recon[1].reshape(100,100), "k=" + str(i)))
+
+	### Call on helper function to plot results	
 	helper_plot_grid(cache, "PCA reconstruction", "gray")
 	
+	####### PCA for colore images #######
 	print('Running PCA, colored version...')
 
 	data_x_r, data_x_g, data_x_b = read_faces_rgb()
@@ -152,5 +163,6 @@ if __name__ == '__main__':
 		#print("# bytes in data_x: " + str(data_x.nbytes))
 		#print("Compression rate: " + str(float(X_projected.nbytes + w_k.nbytes)/float(data_x.nbytes)))
 		cache.append((np.dstack((X_recon_r[0],X_recon_g[0],X_recon_b[0])).reshape(100,100,3), "k=" + str(i)))
+
 	helper_plot_grid(cache, "PCA reconstruction - colored image")
 	
