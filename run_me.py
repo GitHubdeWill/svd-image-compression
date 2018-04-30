@@ -7,7 +7,7 @@
 #
 #  Due Date: April 30, 2018
 #
-#  Note: this is running on python v3
+#  Note: this is file that actually perform SVD and image compression.
 #
 #  Thank you for grading and have a great summer!
 #
@@ -151,6 +151,7 @@ def helper_plot_grid(cache, title, c='Greys'):
     plt.suptitle(title)
     plt.savefig("./figures/" + title + ".png")
     plt.clf()
+
 
 if __name__ == '__main__':
 
