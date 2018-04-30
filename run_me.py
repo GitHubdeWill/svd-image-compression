@@ -46,7 +46,7 @@ def read_faces_rgb():
 	Input: None
 	Output: data_x for R, data_x for G, data_x for B
 	'''
-	nFaces = 20
+	nFaces = 20+1
 	nDims = 100*100
 	data_x_r = np.empty((0, nDims), dtype=float)
 	data_x_g = np.empty((0, nDims), dtype=float)
